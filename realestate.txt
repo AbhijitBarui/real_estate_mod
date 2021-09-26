@@ -1,0 +1,23 @@
+recreating tutorial website but-
+# frontend major edits
+# google map feature on listing page
+# Buyer Testimonials
+# Share Listing button
+# Blog Posts where we show cool locations and sold properties with pictures from/with owners
+# Restricted sections and features only available for certain group of individuals like admins and authors for extra features,
+ like management and blogging etc.
+
+what remains same: 
+pages app- index.html, about.html
+listings app - listing.html, listings.html, search.html, models
+realtors app - models
+accounts app - login.html, register.html, dashboard.html
+contacts app - models
+
+what is introduced:
+readers app - blog.html, blogs.html, search.html, models
+authors app - models
+Testimo app - testimonials.html, models
+
+extras:
+admins can add stuff like listings from general website without accessing admin area

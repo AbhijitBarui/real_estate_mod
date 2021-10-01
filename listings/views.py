@@ -1,5 +1,7 @@
 from typing import List
+from decouple import config
 from django.shortcuts import get_object_or_404, render
+from requests import api
 from .models import Listing
 from listings.choices import state_choices, bedroom_choices, price_choices
 import requests
@@ -20,7 +22,7 @@ def listing(request,listing_id):
     address = f"{lesting.address} {lesting.city} {lesting.state}"
     data_type = "json"
     endpoint = f"https://maps.googleapis.com/maps/api/geocode/{data_type}"
-    api_key = "AIzaSyC9W1gMxTIDRzClsaEWs3HCDxOvcJZslKk"
+    api_key = config('api_key')
     params = {"address": {address}, 'key': api_key}
     format = "https://maps.googleapis.com/maps/api/geocode/json?address=1600+Amphitheatre+Parkway,+Mountain+View,+CA&key=YOUR_API_KEY"
     url_params = urlencode(params)
@@ -43,8 +45,10 @@ def listing(request,listing_id):
 
 
     listing = get_object_or_404(Listing, pk=listing_id)
+    api_key = config('api_key')
     context = {
         'listing': listing,
+        'api_key': api_key,
     }
     return render(request, 'listings/listing.html', context)
 

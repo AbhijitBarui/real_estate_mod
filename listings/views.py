@@ -2,6 +2,8 @@ from typing import List
 from django.shortcuts import get_object_or_404, render
 from .models import Listing
 from listings.choices import state_choices, bedroom_choices, price_choices
+import requests
+from urllib.parse import urlencode
 
 def index(request):
     listings = Listing.objects.order_by('-list_date').filter(is_published = True)
@@ -12,6 +14,34 @@ def index(request):
 
 
 def listing(request,listing_id):
+    
+    lesting = get_object_or_404(Listing, pk=listing_id)
+
+    address = f"{lesting.address} {lesting.city} {lesting.state}"
+    data_type = "json"
+    endpoint = f"https://maps.googleapis.com/maps/api/geocode/{data_type}"
+    api_key = "AIzaSyC9W1gMxTIDRzClsaEWs3HCDxOvcJZslKk"
+    params = {"address": {address}, 'key': api_key}
+    format = "https://maps.googleapis.com/maps/api/geocode/json?address=1600+Amphitheatre+Parkway,+Mountain+View,+CA&key=YOUR_API_KEY"
+    url_params = urlencode(params)
+    url = f"{endpoint}?{url_params}"
+    r = requests.get(url)
+        
+    def extract_lat_lng():
+        if r.status_code in range(200, 299):
+            try:
+                latlng = r.json()['results'][0]['geometry']['location']
+                return latlng
+            except:
+                pass
+        else:
+            return {}
+    
+    lesting.lat = extract_lat_lng().get('lat')
+    lesting.lng = extract_lat_lng().get('lng')
+    lesting.save()
+
+
     listing = get_object_or_404(Listing, pk=listing_id)
     context = {
         'listing': listing,

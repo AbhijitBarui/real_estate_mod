@@ -2,6 +2,8 @@ from typing import List
 from decouple import config
 from django.shortcuts import get_object_or_404, redirect, render
 from requests import api
+
+from listings.forms import ListingForm
 from .models import Listing
 from listings.choices import state_choices, bedroom_choices, price_choices
 import requests
@@ -93,3 +95,13 @@ def search(request):
         'values': request.GET,
     }
     return render(request, 'listings/search.html', context)
+
+def getform(request):
+    form = ListingForm
+    return render(request, 'listings/list_form.html', {'form':form})
+
+def postform(request):
+    form = ListingForm(request.POST)
+    if form.is_valid():
+        form.save()
+    return render(request, 'listings/list_form.html')

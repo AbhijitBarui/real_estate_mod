@@ -52,13 +52,13 @@
           {% if user.is_authenticated %}
             {% if user.is_staff %}
               <li 
-              {% if 'listing_form' in request.path %}
+              {% if 'getform' in request.path %}
                 class="nav-item active mr-3"
               {% else %}
                 class="nav-item mr-3"
               {% endif %}
               >
-                <a class="nav-link" href="{% url 'dashboard' %}"> <!--THis NEEDS MODIFICATION HERE HERE HERE HERE HERE-->
+                <a class="nav-link" href="{% url 'getform' %}"> <!--THis NEEDS MODIFICATION HERE HERE HERE HERE HERE-->
                   Admin Area</a>
               </li>
             {% endif %}

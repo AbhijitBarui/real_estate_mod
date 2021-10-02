@@ -1,6 +1,6 @@
 from typing import List
 from decouple import config
-from django.shortcuts import get_object_or_404, render
+from django.shortcuts import get_object_or_404, redirect, render
 from requests import api
 from .models import Listing
 from listings.choices import state_choices, bedroom_choices, price_choices

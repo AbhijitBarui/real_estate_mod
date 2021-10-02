@@ -35,6 +35,7 @@ INSTALLED_APPS = [
     'realtors.apps.RealtorsConfig',
     'accounts.apps.AccountsConfig',
     'contacts.apps.ContactsConfig',
+    'testimo.apps.TestimoConfig',
 ]
 
 MIDDLEWARE = [
